@@ -14,7 +14,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
   <Provider store={store}>
-    <GoogleOAuthProvider clientId="your id">
+    <GoogleOAuthProvider clientId="553750393601-u644ercs2qbjosoj5plikhnj5mjrhln7.apps.googleusercontent.com">
   <React.StrictMode>
     <App />
   </React.StrictMode>
@@ -26,3 +26,6 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+//553750393601-u644ercs2qbjosoj5plikhnj5mjrhln7.apps.googleusercontent.com -clientid
+//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 -client screate

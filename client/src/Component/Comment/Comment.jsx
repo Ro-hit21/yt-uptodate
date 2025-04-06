@@ -4,7 +4,10 @@ import Displaycommment from './Displaycommment'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { postcomment } from '../../action/comment'
+
 const Comment = ({ videoid }) => {
+   
+    
     const dispatch = useDispatch()
     const [commenttext, setcommentext] = useState("")
     const currentuser = useSelector(state => state.currentuserreducer);
@@ -40,6 +43,7 @@ const Comment = ({ videoid }) => {
         }
     }
 
+    
 
     return (
         <>
@@ -55,6 +59,7 @@ const Comment = ({ videoid }) => {
                         return (<Displaycommment cid={m._id} userid={m.userid} commentbody={m.commentbody} commenton={m.commenton} usercommented={m.usercommented} />)
                     })}
             </div>
+            
         </>
     )
 }

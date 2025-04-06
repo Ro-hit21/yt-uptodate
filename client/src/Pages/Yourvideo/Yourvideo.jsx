@@ -4,6 +4,7 @@ import vid from "../../Component/Video/vid.mp4"
 import Showvideogrid from '../../Component/Showvideogrid/Showvideogrid'
 import Leftsidebar from '../../Component/Leftsidebar/Leftsidebar'
 import { useSelector } from 'react-redux'
+
 const Yourvideo = () => {
     const currentuser=useSelector(state => state.currentuserreducer);
     const yourvideolist=useSelector(s=>s.videoreducer)?.data?.filter(q=>q.videochanel===currentuser?.result._id).reverse()
@@ -62,9 +63,12 @@ const Yourvideo = () => {
                     <h3>PLZ Login to see Your upload video list</h3>
                     </>
                 }
+                
             </div>
+           
         </div>
     </div>
+    
   )
 }
 

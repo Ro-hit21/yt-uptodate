@@ -1,10 +1,27 @@
 import React from 'react'
 import "./Leftsidebar.css"
+import  { useEffect, useState } from "react";
+import axios from "axios";
 import shorts from "./shorts.png"
 import {AiOutlineHome} from "react-icons/ai"
 import {MdOutlineExplore, MdOutlineSubscriptions, MdOutlineVideoLibrary} from "react-icons/md"
 import { NavLink } from 'react-router-dom'
-const Leftsidebar = () => {
+const Leftsidebar = ({ userId }) => {
+    const [points, setPoints] = useState(0);
+
+  useEffect(() => {
+    const fetchPoints = async () => {
+      try {
+        const response = await axios.post("http://localhost:5000/api/updatePoints", { userId });
+        setPoints(response.data.points);
+      } catch (error) {
+        console.error("Error fetching points:", error);
+      }
+    };
+
+    fetchPoints();
+  }, [userId]);
+
   return (
     <div className="container_leftSidebar">
         <NavLink to={'/'} className="icon_sidebar_div">
@@ -27,6 +44,13 @@ const Leftsidebar = () => {
             <MdOutlineVideoLibrary size={22} className='icon_sidebar'/>
             <div className="text_sidebar_icon">Library</div>
         </NavLink>
+        <div className="icon_sidebar_div">
+        
+            <MdOutlineVideoLibrary size={22} className='icon_sidebar'/>
+            <div className="text_sidebar_icon">  Points: {points}</div>
+        
+
+        </div>
     </div>
   )
 }

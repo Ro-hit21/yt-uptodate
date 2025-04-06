@@ -38,3 +38,81 @@ export const deletecomment=(id)=>async(dispatch)=>{
         console.log(error)
     }
 }
+
+
+export const DISLIKE_COMMENT_REQUEST = 'DISLIKE_COMMENT_REQUEST';
+export const DISLIKE_COMMENT_SUCCESS = 'DISLIKE_COMMENT_SUCCESS';
+export const DISLIKE_COMMENT_FAILURE = 'DISLIKE_COMMENT_FAILURE';
+
+
+export const dislikeComment = (commentId) => async (dispatch) => {
+  dispatch({ type: DISLIKE_COMMENT_REQUEST });
+  
+  try {
+    const response = await fetch(`/api/comments/${commentId}/dislike`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+    
+      },
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to dislike comment');
+    }
+    
+    const data = await response.json();
+    
+    dispatch({
+      type: DISLIKE_COMMENT_SUCCESS,
+      payload: data
+    });
+    
+    return data;
+  } catch (error) {
+    dispatch({
+      type: DISLIKE_COMMENT_FAILURE,
+      payload: error.message
+    });
+    throw error;
+  }
+};
+
+export const LIKE_COMMENT_REQUEST = 'LIKE_COMMENT_REQUEST';
+export const LIKE_COMMENT_SUCCESS = 'LIKE_COMMENT_SUCCESS';
+export const LIKE_COMMENT_FAILURE = 'LIKE_COMMENT_FAILURE';
+
+
+export const likeComment = (commentId) => async (dispatch) => {
+  dispatch({ type: LIKE_COMMENT_REQUEST });
+  
+  try {
+    const response = await fetch(`/api/comments/${commentId}/like`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+       
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to like comment');
+    }
+    
+    const data = await response.json();
+    
+    dispatch({
+      type: LIKE_COMMENT_SUCCESS,
+      payload: data
+    });
+    
+    return data;
+  } catch (error) {
+    dispatch({
+      type: LIKE_COMMENT_FAILURE,
+      payload: error.message
+    });
+    
+    throw error;
+  }
+};

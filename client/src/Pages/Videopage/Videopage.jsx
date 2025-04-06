@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useState,useEffect } from 'react'
 import "./Videopage.css"
+import axios from 'axios';
 import moment from 'moment'
 import Likewatchlatersavebtns from './Likewatchlatersavebtns'
 import { useParams, Link } from 'react-router-dom'
@@ -8,7 +9,11 @@ import Comment from '../../Component/Comment/Comment'
 import { viewvideo } from '../../action/video'
 import { addtohistory } from '../../action/history'
 import { useSelector,useDispatch } from 'react-redux'
-const Videopage = () => {
+
+
+const Videopage = ({ videoId, userId }) => {
+    
+    
     const { vid } = useParams();
     const dispatch=useDispatch()
     const vids=useSelector((state)=>state.videoreducer)
@@ -60,7 +65,9 @@ const Videopage = () => {
     const currentuser = useSelector(state => state.currentuserreducer);
     const handleviews=()=>{
         dispatch(viewvideo({id:vid}))
-    }
+    
+    
+    };
     const handlehistory=()=>{
         dispatch(addtohistory({
             videoid:vid,
@@ -73,6 +80,23 @@ const Videopage = () => {
         }
         handleviews()
     },[])
+
+    const [points, setPoints] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      updatePoints();
+    }
+  }, [videoId]); // Trigger when video changes
+
+  const updatePoints = async () => {
+    try {
+      const response = await axios.post("http://localhost:5000/api/updatePoints", { userId });
+      setPoints(response.data.points);
+    } catch (error) {
+      console.error("Error updating points:", error);
+    }
+  };
     return (
         <>
             <div className="container_videoPage">
@@ -106,10 +130,18 @@ const Videopage = () => {
                     </div>
                     <div className="moreVideoBar">More videos</div>
                 </div>
+                
             </div>
+            <div>
+      <h1>Watching Video {videoId}</h1>
+      <p>Your Points: {points}</p>
+      <video src={`video/${videoId}.mp4`} controls autoPlay />
+    </div>
+            
+   
+
         </>
     )
 }
 
 export default Videopage
-
