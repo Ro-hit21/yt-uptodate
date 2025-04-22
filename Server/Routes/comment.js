@@ -1,7 +1,7 @@
 import express from "express"
 
 import { postcomment,getcomment,deletecomment,editcomment,createComment,
-    dislikeComment, } from "../Controllers/Comment.js"
+    dislikeComment } from "../Controllers/Comment.js"
 import auth from "../middleware/auth.js"
 const router=express.Router()
 
